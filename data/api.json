@@ -1,6 +1,6 @@
 [
-	{
-		"path": "/tasks/*",
-		"data": true
-	}
+  {
+    "path": "/tasks/*",
+    "data": true
+  }
 ]

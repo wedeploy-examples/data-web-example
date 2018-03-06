@@ -1,32 +1,32 @@
 var list = document.querySelector('.list');
 
 WeDeploy
-	.data('db-boilerplatedata.wedeploy.io')
-	.orderBy('id', 'desc')
-	.limit(5)
-	.get('tasks')
-	.then(function(response) {
-		appendTasks(response);
-	})
-	.catch(function(error) {
-		console.error(error);
-	});
+  .data('db-boilerplatedata.wedeploy.io')
+  .orderBy('id', 'desc')
+  .limit(5)
+  .get('tasks')
+  .then(function(response) {
+    appendTasks(response);
+  })
+  .catch(function(error) {
+    console.error(error);
+  });
 
 WeDeploy
-	.data('db-boilerplatedata.wedeploy.io')
-	.limit(5)
-	.orderBy('id', 'desc')
-	.watch('tasks')
-	.on('changes', function(tasks) {
-		appendTasks(tasks);
-	});
+  .data('db-boilerplatedata.wedeploy.io')
+  .limit(5)
+  .orderBy('id', 'desc')
+  .watch('tasks')
+  .on('changes', function(tasks) {
+    appendTasks(tasks);
+  });
 
 function appendTasks(tasks) {
-	var taskList = '';
+  var taskList = '';
 
-	tasks.forEach(function(task) {
-		taskList += `<input type="text" value="${task.name}" readonly>`;
-	});
+  tasks.forEach(function(task) {
+    taskList += `<input type="text" value="${task.name}" readonly>`;
+  });
 
-	list.innerHTML = taskList;
+  list.innerHTML = taskList;
 }
