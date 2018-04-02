@@ -2,22 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta content="minimum-scale=1.0, width=device-width" name="viewport">
   <title>Add / To-do</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,700">
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <form class="container">
-    <h1>To-do List</h1>
-    <label for="item">Item Description</label>
-    <input name="item" type="text" placeholder="Buy milk" autofocus autocomplete="off" required>
-    <button type="submit">Add Item</button>
-    <a href="/list.html">Go to item listing</a>
-  </form>
+  <div class="container">
+    <form class="form-container">
+      <h1 class="title">New List Item</h1>
+      <p class="description">Add a new item to your to-do list.</p>
+      <div class="form-group">
+        <label for="item">Item Description</label>
+        <input name="item" type="text" placeholder="Enter item (e.g. Buy milk, Bring camera, Take a break)" autofocus autocomplete="off" required>
+      </div>
+      <button class="btn submit" type="submit">Add Item</button>
+    </form>
 
-  <img class="logo" src="logo.png" width="150" alt="WeDeploy">
+    <div class="signup-container">
+      <p>Want to see your items?</p><a class="link" href="list/">&nbsp;Go to list.</a>
+    </div>
+  </div>
 
-  <script src="https://cdn.wedeploy.com/api/latest/wedeploy.js"></script>
-  <script src="index.js"></script>
+  <script src="https://cdn.wedeploy.com/api/4.0.2/wedeploy.js"></script>
+  <script>
+    var form = document.querySelector('form');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      WeDeploy
+        .data('db-dataweb.wedeploy.io')
+        .create('tasks', {name: form.item.value })
+        .then(function(response) {
+          form.reset();
+          form.item.focus();
+          console.info('Saved:', response);
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="minimum-scale=1.0, width=device-width" name="viewport">
+  <title>List / To-do</title>
+  <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+  <div class="container">
+    <form class="form-container">
+      <h1 class="title">To-Do List</h1>
+      <p class="description">See the items on your list.</p>
+      <div class="list">Loading...</div>
+    </form>
+
+    <div class="signup-container">
+      <p>Want to add more items?</p><a class="link" href="/">&nbsp;Back to home.</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.wedeploy.com/api/4.0.2/wedeploy.js"></script>
+  <script>
+    var list = document.querySelector('.list');
+
+    WeDeploy
+      .data('db-dataweb.wedeploy.io')
+      .orderBy('id', 'desc')
+      .limit(5)
+      .get('tasks')
+      .then(function(response) {
+        appendTasks(response);
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+
+    function appendTasks(tasks) {
+      var taskList = '';
+
+      tasks.forEach(function(task) {
+        taskList += `<input type="text" value="${task.name}" readonly>`;
+      });
+
+      list.innerHTML = taskList;
+    }
+  </script>
+</body>
+</html>
